@@ -30,7 +30,7 @@ const getGame = function (num, rand, i) {
 			num = Number(num);
 			if (num === rand) {
 				if (confirm('Поздравляю, Вы угадали!!! Загаданное число: ' + num + '. Хотели бы сырать еще?') === true) {
-					one();
+					getGameBot();
 				} else {
 					alert ('Игра окончена.');
 				};
@@ -39,7 +39,7 @@ const getGame = function (num, rand, i) {
 				getGame(num, rand, i - 1);
 			} else if (i === 0) {
 				if (confirm ('Попытки закончились, хотите сыграть еще?') === true) {
-					one();
+					getGameBot();
 				} else {
 					alert ('Игра окончена.');
 				};
