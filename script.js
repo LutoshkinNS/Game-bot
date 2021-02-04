@@ -5,39 +5,56 @@ let isNumber = function (n) {
 	return !isNaN(parseFloat(n)) && isFinite(n);
 };
 
-// Функция генерации рандомного числа от 1 до 100
-function getRandomIntInclusive(min, max) {
-	min = Math.ceil(min);
-	max = Math.floor(max);
-	return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-const randInt = getRandomIntInclusive(1, 100);
+
+let getGameBot = function () {
+
+	// Функция генерации рандомного числа от 1 до 100
+	function randIntNumber () {
+		return Math.ceil(Math.random()*100);
+	};
+
+	let randInt = randIntNumber();
 
 
-const number = prompt('Угадай число от 1 до 100');
+	let number = prompt('Угадай число от 1 до 100');
 
-const getGameBot = function (num, randInt) {
-	
+const getGame = function (num, rand, i) {
+
 	if (String(num) === String(null)) {
-		alert('Игра окончена.')
+		alert('Игра окончена.');
 	} else if (!isNumber(num)) {
 		num = prompt('Введите число!');
-		getGameBot(num, randInt);
+		getGame(num, rand, i);
 	} else {
 		function getNumber () {
 			num = Number(num);
-			if (num > randInt) {
-				num = prompt('Заданное число меньше ' + num);
-				getGameBot(num, randInt);
-			} else if (num === randInt) {
-				alert('Поздравляю, Вы угадали!!! Загаданное число: ' + num);
+			if (num === rand) {
+				if (confirm('Поздравляю, Вы угадали!!! Загаданное число: ' + num + '. Хотели бы сырать еще?') === true) {
+					one();
+				} else {
+					alert ('Игра окончена.');
+				};
+			} else if (num > rand) {
+				num = prompt('Заданное число меньше ' + num + ', осталось попыток ' + i);
+				getGame(num, rand, i - 1);
+			} else if (i === 0) {
+				if (confirm ('Попытки закончились, хотите сыграть еще?') === true) {
+					one();
+				} else {
+					alert ('Игра окончена.');
+				};
 			} else {
-				num = prompt('Заданное число больше ' + num);
-				getGameBot(num, randInt);
+				num = prompt('Заданное число больше ' + num + ', осталось попыток ' + i);
+				getGame(num, rand, i - 1);
 			};
 		};
 		getNumber();
 	};
 };
 
-getGameBot(number, randInt);
+getGame(number, randInt, 9);
+
+};
+
+getGameBot();
+
